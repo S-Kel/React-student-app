@@ -1,1 +1,0 @@
-Set-PSReadlineOption -BellStyle None
