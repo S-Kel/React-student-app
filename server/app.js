@@ -5,6 +5,7 @@ const app = express();
 
 // No database... keep it simple
 const students = ["Jack", "Jane", "John"];
+const teachers = ["Jacko", "Janeo", "Johno"];
 
 // Parse application/json
 app.use(bodyParser.json());
@@ -23,6 +24,12 @@ app.post("/api/students", (req, res) => {
     const student = req.body.student;
     students.push(student);
     res.json(student);
+});
+
+// TEACHERS
+// Return all Teachers
+app.get("/api/teachers", (req, res) => {
+    res.json(teachers);
 });
 
 // We'll use port 3001 so we can run react dev server on 3000
