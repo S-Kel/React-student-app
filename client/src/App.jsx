@@ -1,19 +1,18 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import axios from "axios";
 
 // Import and Create studentApi
 import API from "./API/Api";
 
-import logo from './logo.svg';
-import './App.css';
-
+import logo from "./logo.svg";
+import "./App.css";
 
 // const studentApi = 'http://localhost:3001/api/students';
 
 class App extends Component {
   // Establish initial state
   state = {
-    isTeacher: true,
+    isTeacher: false,
     newStudent: "",
     students: [],
     teachers: []
@@ -30,6 +29,7 @@ class App extends Component {
       // Set student to student array
       this.setState({ teachers: response.data });
     });
+
     // Using fetch
     /*
     fetch(studentApi)
@@ -64,7 +64,7 @@ class App extends Component {
       console.log(">>>>>>>>>");
       //Post the new student to server
       API.post("/teachers", {
-        teachers: this.state.newStudent
+        teacher: this.state.newStudent
       }).then(response => {
         console.log(response);
         // success! Add the new student to our array and clear input
@@ -79,17 +79,20 @@ class App extends Component {
     this.setState({ newStudent: evt.target.value });
   };
   // Is teacher selected
-  handleIsTeacher = evt=>{
+  handleIsTeacher = evt => {
     const target = evt.target;
-    const value = target.type === 'checkbox' ? target.checked : target.value;
-    const name = target.name;
+    const value = target.type === "checkbox" ? target.checked : target.value;
+    // const name = target.name;
     this.setState({
-      [name]: value
+      isTeacher: value
     });
-  }
+  };
   // Render components to DOM Element
   render() {
     let id = 0;
+    const people = this.state.isTeacher
+      ? this.state.teachers
+      : this.state.students;
     return (
       <div className="App">
         <header className="App-header">
@@ -105,19 +108,28 @@ class App extends Component {
           />
           <input
             type="checkbox"
-            name='isTeacher'
+            name="isTeacher"
             checked={this.state.isTeacher}
             onChange={this.handleIsTeacher}
           />
         </form>
-        {this.state.students.map(student => (
-          <div key={id++} className="student">
-            <h2>{student}</h2>
-          </div>
-        ))}
+        {people
+          .sort(() => -0.5 + Math.random())
+          .map(student => (
+            <div key={id++} className="student">
+              <h2>{student}</h2>
+            </div>
+          ))}
       </div>
     );
   }
+
+  // fully random by @BetonMAN
+  shuffleArray = arr =>
+    arr
+      .map(a => [Math.random(), a])
+      .sort((a, b) => a[0] - b[0])
+      .map(a => a[1]);
 }
 
 export default App;
