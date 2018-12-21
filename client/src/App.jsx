@@ -97,7 +97,7 @@ class App extends Component {
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Students</h1>
+          <h1 className="App-title">Students \|/ <span className="teacher">Teachers</span></h1>
         </header>
         <form onSubmit={this.createNewStudent} className="form">
           <label htmlFor="">New Student: </label>
@@ -113,7 +113,7 @@ class App extends Component {
             checked={this.state.isTeacher}
             onChange={this.handleIsTeacher}
           />
-          <label htmlFor="teacher">New Teacher</label>
+          <label htmlFor="teacher" className="teacher">New Teacher</label>
         </form>
         {people
           .sort(() => -0.5 + Math.random())
