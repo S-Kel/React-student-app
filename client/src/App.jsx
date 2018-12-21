@@ -100,18 +100,20 @@ class App extends Component {
           <h1 className="App-title">Students</h1>
         </header>
         <form onSubmit={this.createNewStudent} className="form">
-          <label htmlFor="">New student: </label>
+          <label htmlFor="">New Student: </label>
           <input
             type="text"
             value={this.state.newStudent}
             onChange={this.changeNewChange}
-          />
-          <input
+          />          
+          <input            
             type="checkbox"
             name="isTeacher"
+            id="teacher"
             checked={this.state.isTeacher}
             onChange={this.handleIsTeacher}
           />
+          <label htmlFor="teacher">New Teacher</label>
         </form>
         {people
           .sort(() => -0.5 + Math.random())
