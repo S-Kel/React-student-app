@@ -90,6 +90,8 @@ class App extends Component {
   // Render components to DOM Element
   render() {
     let id = 0;
+    const baseUrl = "https://source.unsplash.com/collection/888146/";
+    // Return teacher or student object based on state
     const people = this.state.isTeacher
       ? this.state.teachers
       : this.state.students;
@@ -119,19 +121,33 @@ class App extends Component {
           .sort(() => -0.5 + Math.random())
           .map(student => (
             <div key={id++} className="student">
-              <h2>{student}</h2>
+              <h3>{student}</h3>
+              <img src= { this.state.isTeacher
+                          ? (baseUrl + (120 + id) + "x" + (100 + id))
+                          : (baseUrl + (100 + id) + "x" + (80 + id))
+                          } 
+                    alt=""/>
             </div>
           ))}
       </div>
     );
+    
   }
 
   // fully random by @BetonMAN
-  shuffleArray = arr =>
+  static shuffleArray(arr){
+
     arr
       .map(a => [Math.random(), a])
       .sort((a, b) => a[0] - b[0])
       .map(a => a[1]);
+
+    // return arr;
+  }
+  // static displayData(data){
+  //   const arr = this.shuffleArray(data)
+  //   console.log(arr.join('  '));
+  // }
 }
 
 export default App;
